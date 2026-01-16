@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2 id="extensionTitle">ChatExporter</h2>
+    
+    <!-- Modo 1: Link do Gemini (NOVO!) -->
+    <div class="mode-section">
+      <h3>🔗 Modo 1: Link Compartilhado</h3>
+      <p class="mode-hint">Cole o link de compartilhamento do Gemini:</p>
+      <input type="text" id="shareLink" placeholder="https://g.co/gemini/share/..." />
+      <button id="importBtn" class="primary">Importar do Link</button>
+    </div>
+    
+    <div class="divider">OU</div>
+    
+    <!-- Modo 2: Captura Direta (Original) -->
+    <div class="mode-section">
+      <h3>📸 Modo 2: Captura Direta</h3>
+      <div class="status-box">
+        <span id="status">Pronto para iniciar</span>
+        <div id="counter">Mensagens capturadas: 0</div>
+      </div>
+      <div class="options-grid">
+        <label class="option">
+          <input type="checkbox" id="autoScrollCheck" checked>
+          Auto-Scroll
+        </label>
+        <label class="option">
+          <input type="checkbox" id="zipExportCheck">
+          Imagens Offline (.zip)
+        </label>
+        <label class="option">
+          <input type="checkbox" id="pdfExportCheck">
+          Visual Backup (PDF)
+        </label>
+      </div>
+      <div class="controls">
+        <button id="startBtn">Iniciar Gravação</button>
+        <button id="stopBtn" disabled>Parar e Exportar</button>
+        <button id="resetBtn">Limpar</button>
+      </div>
+      <p class="hint">Modo Híbrido: O padrão é Markdown leve com links online.</p>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

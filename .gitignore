@@ -1,0 +1,31 @@
+# Arquivos de teste e desenvolvimento
+export_tests/
+*.log
+*.txt
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node modules (se adicionar build tools no futuro)
+node_modules/
+package-lock.json
+
+# Arquivos temporários
+*.tmp
+*.bak
+*~
+
+# Arquivos de build
+dist/
+build/
+
+# Arquivos sensíveis
+.env
+secrets.json

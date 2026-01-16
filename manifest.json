@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "ChatExporter",
+  "version": "2.2.4",
+  "description": "Exportador Premium de Conversas (ChatGPT/Gemini)",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://gemini.google.com/*",
+    "https://g.co/gemini/share/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://gemini.google.com/*",
+        "https://claude.ai/*",
+        "https://*/*"
+      ],
+      "js": [
+      "lib/jszip.min.js",
+      "lib/turndown.js",
+      "version.js",
+      "src/config.js",
+      "src/utils.js",
+      "src/markdown.js",
+      "src/zip_service.js",
+      "src/pdf_service.js",
+      "src/scroll.js",
+      "src/capture.js",
+      "src/main.js"
+    ]
+    }
+  ]
+}
