@@ -2,11 +2,11 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.2.4-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-yellow.svg)
 
-**Exporta conversas de ChatGPT, Gemini e Claude para Markdown com um clique!**
+**Exporta conversas de ChatGPT e Gemini para Markdown, ZIP ou PDF com um clique!**
 
 </div>
 
@@ -14,14 +14,16 @@
 
 ## 🚀 Funcionalidades
 
-- ✅ **Exportação Universal:** Funciona com ChatGPT, Gemini, Claude e outros
-- 🧠 **Aprendizado Automático:** Detecta automaticamente o container de scroll
-- 📝 **Markdown Limpo:** Conversão HTML → Markdown com formatação perfeita
-- 🔄 **Auto-Scroll Inteligente:** Captura conversas longas com lazy loading
-- 📎 **Anexos:** Captura imagens e links de arquivos
-- 🎯 **Zero Duplicatas:** Sistema inteligente de filtragem
-- 📊 **Metadados Completos:** Título, autor, data e versão rastreáveis
-- 🐛 **Debug Logs:** Exporta logs para diagnóstico
+- ✅ **Estratégia Híbrida de Imagens:** 
+  - **Download Leve (Padrão):** Markdown com links diretos para as imagens.
+  - **Pacote Offline (ZIP):** Markdown + pasta `assets/` com todas as imagens locais.
+  - **Visual Backup (PDF):** Gera PDF formatado da conversa.
+- ✅ **Exportação Universal:** Suporte aprimorado para ChatGPT e Gemini (incluindo links compartilhados).
+- ✅ **Zero Base64 Bloat:** Arquivos 95% menores e carregamento instantâneo.
+- ✅ **Auto-Scroll Turbo:** Captura conversas imensas com velocidade 3x superior.
+- ✅ **Markdown Limpo:** Conversão HTML → Markdown sem ruídos de interface (botões de cópia, avatares, etc).
+- ✅ **Instant Mode:** Exportação imediata para links compartilhados do Gemini.
+- ✅ **Debug Logs:** Exportação opcional de registros para diagnóstico técnico.
 
 ---
 
@@ -33,7 +35,7 @@
 ### Manual (Desenvolvimento)
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/ChatExporter.git
+   git clone https://github.com/duribeiro/chat-exporter.git
    ```
 
 2. Abra o Chrome e vá para `chrome://extensions/`
@@ -48,43 +50,33 @@
 
 ## 🎯 Como Usar
 
-### Modo Automático (Recomendado)
-1. **Abra uma conversa** no ChatGPT, Gemini ou Claude
-2. **Clique no ícone da extensão**
-3. Marque **"Auto-Scroll"** (padrão)
-4. Clique em **"Iniciar Gravação"**
-   - A extensão detecta automaticamente o container de scroll
-   - Rola suavemente até o topo e depois até o fim
-   - Captura todas as mensagens com lazy loading
-5. Clique em **"Parar e Exportar"** ao finalizar
-
-### Modo Manual (Fallback)
-Se a detecção automática falhar, o Modo Manual é ativado automaticamente:
-1. Uma notificação visual aparece: **"Modo Manual Ativo"**
-2. **Role manualmente** a página do topo ao fim
-3. A extensão captura as mensagens conforme elas aparecem na tela
-4. Clique em **"Parar e Exportar"** para baixar
+1. **Abra uma conversa** no ChatGPT ou Gemini.
+2. **Clique no ícone da extensão**.
+3. Escolha suas opções:
+   - **Auto-Scroll:** Para capturar conversas longas do topo ao fim.
+   - **Download ZIP:** Se quiser as imagens salvas localmente.
+   - **Exportar PDF:** Para uma versão visual pronta para impressão.
+4. Clique em **"Iniciar Gravação"** (ou use o **Importar do Link** para URLs compartilhadas).
+5. Clique em **"Parar e Exportar"** ao finalizar.
 
 ---
 
-## 🧠 Arquitetura Inteligente (v2.0)
+## 🧠 Arquitetura Phoenix (v2.2.x)
 
-O ChatExporter v2.0 introduziu o sistema **Phoenix**, que elimina a necessidade de atualizações constantes de seletores.
+O ChatExporter utiliza o motor **Phoenix**, que elimina a dependência de seletores rígidos.
 
-### Sistema de Aprendizado
-Em vez de seletores hardcoded, a extensão:
-1. **Detecta** automaticamente estruturas de mensagem na primeira visita
-2. **Identifica** padrões de User vs Assistant
-3. **Aprende** seletores de imagens, códigos e links
-4. **Salva** o aprendizado localmente para uso futuro
-
-Se o layout do site mudar, a extensão detecta a falha e **re-aprende** sozinha na próxima execução!
+### Sistema Modular
+O projeto foi refatorado para ser totalmente modular, facilitando a manutenção e expansão:
+- `src/config.js`: Central de seletores e constantes.
+- `src/capture.js`: Core de extração de mensagens e metadados.
+- `src/markdown.js`: Regras de conversão (Turndown).
+- `src/zip_service.js` & `src/pdf_service.js`: Serviços de exportação especializada.
+- `src/scroll.js`: Motores de scroll inteligente e turbo.
 
 ### Filtragem de Duplicatas
-Para garantir exportações limpas:
-- Hash único gerado para cada mensagem
-- Detecção inteligente de elementos pai/filho (evita duplicar container e conteúdo)
-- Inferência de autor baseada no contexto do turno
+- Hash único gerado para cada mensagem (normalizado).
+- Detecção inteligente de elementos pai/filho.
+- Ordenação visual absoluta combinando `turnIndex` e posição no DOM.
 
 ---
 
@@ -93,43 +85,43 @@ Para garantir exportações limpas:
 ### Tecnologias
 - **Manifest V3** (Chrome Extension)
 - **Turndown.js** (HTML → Markdown)
-- **Vanilla JavaScript** (Zero dependências)
+- **JSZip** (Empacotamento de assets)
+- **Vanilla JavaScript** (Zero frameworks pesados)
 
 ### Estrutura do Projeto
 ```
 ChatExporter/
 ├── manifest.json          # Configuração da extensão
-├── version.js             # Metadados e versionamento
-├── content.js             # Lógica principal (autoscroll, captura)
-├── popup.html/js          # Interface do usuário
-├── lib/               
-│   └── turndown.js        # Motor de conversão Markdown
-├── export_tests/          # Pasta para salvar testes manuais
-└── README.md              # Documentação completa
+├── version.js             # Metadados da versão atual
+├── popup.html/js          # Interface do usuário (UI)
+├── src/                   # Lógica modular
+│   ├── config.js          # Seletores CSS
+│   ├── capture.js         # Lógica de captura
+│   ├── markdown.js        # Conversor Markdown
+│   ├── scroll.js          # Motores de Scroll
+│   └── ...service.js      # Serviços (ZIP/PDF)
+├── lib/                   # Bibliotecas externas (Turndown, JSZip)
+└── README.md              # Documentação
 ```
 
 ### Comandos Git Essenciais
 
-**Inicializar e Commitar:**
+**Inicializar e Taggear:**
 ```bash
 git init
 git add .
-git commit -m "feat: Initial commit v2.0.0"
-git tag -a v2.0.0 -m "Release Phoenix"
-```
-
-**Criar Nova Feature:**
-```bash
-git checkout -b feature/nova-funcionalidade
-# ...codar...
-git commit -m "feat: Adiciona nova funcionalidade"
-git push origin feature/nova-funcionalidade
+git commit -m "feat: Initial commit v2.2.4"
+git tag -a v2.2.4 -m "Release Hybrid Light"
 ```
 
 **Reverter Versão:**
+Como este repositório foi reinicializado na v2.2.4, as tags de versões anteriores (v1.x/v2.0) não estão no histórico atual. A partir de agora, use:
 ```bash
-# Voltar para tag específica
-git checkout v1.3.0
+# Ver tags disponíveis
+git tag
+
+# Voltar para uma versão específica
+git checkout v2.2.4
 ```
 
 ---
@@ -137,78 +129,39 @@ git checkout v1.3.0
 ## 📝 Versionamento
 
 Seguimos [Semantic Versioning](https://semver.org/):
-- **Major (X.0.0):** Mudanças incompatíveis (ex: Refatoração v2.0)
-- **Minor (0.X.0):** Novas funcionalidades (ex: Modo Híbrido v1.4)
-- **Patch (0.0.X):** Correções de bugs
-
-Consulte `CHANGELOG.md` para o histórico detalhado.
-
----
-
-## 📁 Estrutura de Arquivos Exportados
-
-### Nome do Arquivo
-```
-v2-0-0-test3-gemini.md
-```
-- `v2-0-0`: Versão do ChatExporter
-- `test3`: Número sequencial do teste
-- `gemini`: Plataforma
-
+- **Major (X.0.0):** Refatorações críticas ou mudanças arquiteturais.
+- **Minor (0.X.0):** Novas funcionalidades relevantes.
+- **Patch (0.0.X):** Correções de bugs e melhorias finas.
 
 ---
 
 ## 📝 Changelog
 
-Veja [CHANGELOG.md](CHANGELOG.md) para histórico completo de mudanças.
+Consulte o [CHANGELOG.md](CHANGELOG.md) para o histórico detalhado de cada patch.
 
-### Última Versão: 2.0.0 "Phoenix" (2026-01-15)
+### Última Versão: 2.2.4 "Hybrid Light" (2026-01-16)
 
 **Adicionado:**
-- Sistema de filtragem inteligente de duplicatas
-- Detecção de autor via turno pai
-- Versionamento semântico com metadados
-- Contador de testes sequencial
-
-**Corrigido:**
-- Duplicatas em conversas longas
-- Autores marcados como "Unknown"
-- Ordem cronológica das mensagens
+- Estratégia híbrida: Links originais (leve) vs ZIP (offline).
+- Exportação nativa para PDF.
+- Suporte a links compartilhados do ChatGPT.
+- Remoção de Base64 para máxima performance.
 
 ---
 
 ## 🐛 Reportar Bugs
 
-Encontrou um problema? [Abra uma issue](https://github.com/seu-usuario/ChatExporter/issues) com:
-- Versão do ChatExporter (ex: v2.0.0)
-- Plataforma (ChatGPT/Gemini/Claude)
-- Arquivo de log exportado
-- Descrição do problema
-
----
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Por favor:
-
-1. Fork o projeto
-2. Crie uma branch (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abra um Pull Request
-
----
-
-## 📜 Licença
-
-MIT License - veja [LICENSE](LICENSE) para detalhes.
+Encontrou um problema? [Abra uma issue](https://github.com/duribeiro/chat-exporter/issues) com:
+1. Versão da extensão (ex: v2.2.4).
+2. Plataforma (ChatGPT ou Gemini).
+3. O log de debug (se disponível).
 
 ---
 
 ## 👨‍💻 Autor
 
 **Eduardo Ribeiro**
-- GitHub: [@eduardoribeiro](https://github.com/eduardoribeiro)
+- GitHub: [@duribeiro](https://github.com/duribeiro)
 
 ---
 
@@ -218,4 +171,4 @@ Se este projeto te ajudou, considere dar uma ⭐ no GitHub!
 
 ---
 
-*Última atualização: 2026-01-15*
+*Última atualização: 2026-01-16*

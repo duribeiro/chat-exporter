@@ -5,14 +5,16 @@ Todas as mudanças notáveis neste projeto serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+> **Nota:** Este repositório foi reinicializado na versão **2.2.4**. Históricos de versões anteriores (v1.x, v2.0-v2.1) são mantidos aqui para referência de evolução do projeto.
+
 ---
 
 ## [2.2.4] "Hybrid Light" - 2026-01-16
 ### ✨ Novidades: Estratégia Híbrida de Imagens
-- **Markdown Inteligente**: Por padrão, as imagens agora são salvas como links originais (`https://...`). Isso reduz o tamanho dos arquivos em 95% e torna os logs ideais para treinamento de IA.
-- **Modo Offline (.zip)**: Nova opção no Popup para baixar um pacote ZIP contendo o Markdown e uma pasta `assets/` com todas as imagens reais (via JSZip).
-- **Visual Backup (PDF)**: Opção de disparar a impressão para PDF diretamente.
-- **Remoção do Base64 Bloat**: Fim dos arquivos de 10MB! Exportações agora são leves e rápidas.
+- **Markdown Inteligente**: Por padrão, as imagens agora são salvas como links originais (`https://...`). Isso reduz o tamanho dos arquivos em 95%.
+- **Modo Offline (.zip)**: Opção no Popup para baixar um pacote ZIP contendo o Markdown e uma pasta `assets/` com todas as imagens reais (via JSZip).
+- **Visual Backup (PDF)**: Nova funcionalidade de exportação direta para PDF formatado.
+- **Remoção do Base64 Bloat**: Fim dos arquivos gigantescos! Exportações agora são leves e rápidas.
 - **Fim da Divisão de Arquivos**: Como os arquivos agora são leves, não é mais necessário quebrar conversas longas em múltiplas partes.
 
 ## [2.2.3] - Phoenix Fix - 2026-01-16
